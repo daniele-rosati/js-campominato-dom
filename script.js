@@ -1,16 +1,16 @@
-//  Generazione delle celle 
-//  Iniziamo il conteggio da 1
+
 //  Quando l'utente clicca su una cella, chiamiamo la funzione handleClick() 
-//  La classe "clicked" verrà aggiunta alla cella cliccata 
+
 //  Il testo all'interno della cella sarà il numero progressivo 
-//  Ad esempio, la prima cella avrà il testo "1", la seconda "2", ecc. 
+
 //  Una cella cliccata avrà anche un event listener che richiama la funzione handleCellClick 
 //  Passiamo il numero della cella cliccata come parametro alla funzione 
 //  In console verrà emesso un messaggio con il numero della cella cliccata 
-//  Si prega di aprire la console del browser per vedere i messaggi 
-//  Fai clic su una cella per vedere l'effetto 
+ 
+
 //  I numeri andranno da 1 a 100 
 
+// inizializzo le variabili necessarie e creo gli arrey
 const rows = 10;
 const cols = 10;
 const totalCells = rows * cols;
@@ -19,6 +19,8 @@ let bombs = [];
 let revealedCells = 0;
 let score = 0;
 
+//  Generazione delle celle 
+//  Iniziamo il conteggio da 1
 function initializeGame() {
   bombs = [];
   revealedCells = 0;
@@ -26,7 +28,7 @@ function initializeGame() {
   generateBombs();
   createGrid();
 }
-
+// generiamo le bombe in maniera random 
 function generateBombs() {
   while (bombs.length < totalBombs) {
     const bombPosition = Math.floor(Math.random() * totalCells);
@@ -35,18 +37,17 @@ function generateBombs() {
     }
   }
 }
-
+// qui faccio una funzione che mi permetta di rivelare la cella e se nel caso on c'è la bomba diventa blu in caso contrario diventa rossa e il gioco si interrompe
 function revealCell(cellNum) {
   const cell = document.getElementById(`cell-${cellNum}`);
   if (bombs.includes(cellNum)) {
-    cell.style.backgroundColor = 'red';
-    
+    cell.style.backgroundColor = 'red'; // qui non va il colore rosso nella cella ma si interrompe
     initializeGame();
   } else {
     cell.style.backgroundColor = 'blue';
     cell.removeEventListener('click', cell);
     score++;
-    revealedCells++;
+    revealedCells++; // qui creo lo score che mi permette di vedere quanto ho fatto di punteggio, va di 1 in 1 quindi se prendo 2 caselle giuste i punti fatti saranno di 2 punti totali, se invece perdo si azzera
     document.getElementById('score').textContent = score;
     if (revealedCells === totalCells - totalBombs) {
       alert(`Complimenti! Hai vinto con un punteggio di ${score}.`);
@@ -54,6 +55,8 @@ function revealCell(cellNum) {
     }
   }
 }
+
+// creo la tabella con le varie colonne e righe
 
 function createGrid() {
   const gridContainer = document.getElementById('grid');
@@ -70,6 +73,8 @@ function createGrid() {
     
   }
 }
+
+// ▼ vecchia funzione che non andava correttamente e che purtroppo ho dovuto rifare da capo 🫠😭
 
 // function createGameGrid() {
 //   const gridContainer = document.querySelector('.grid-container');
